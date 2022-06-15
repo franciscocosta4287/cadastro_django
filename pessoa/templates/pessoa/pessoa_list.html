@@ -1,12 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
-</head>
-<body>
-    <h1>Cadastro de Pessoas</h1>
-</body>
-</html>
+{% extends 'main/base.html' %}
+
+{% block content %}
+    <a href="{% url 'pessoa.novo' %}">Novo</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Data Nascimento</th>
+                <th>Ativo</th>
+            </tr>
+            <tbody>
+                {% for pessoa in object_list %}
+                    <tr>
+                        <td>{{ pessoa.nome_completo }}</td>
+                        <td>{{ pessoa.data_nascimento|date:"SHORT_DATE_FORMAT" }}</td>
+                        <td>
+                            {% if pessoa.ativo %}
+                            Sim
+                            {% else %}
+                            Não
+                            {% endif %}
+                        </td>
+                    </tr>                    
+                {% endfor %}
+            </tbody>
+        </thead>
+    </table>
+{% endblock content %}
